@@ -1,4 +1,6 @@
-﻿namespace VoituresGTA;
+﻿using System.Xml.Serialization;
+
+namespace VoituresGTA;
 /*
     CONSIGNES
     1. Déclarer un tableau contenant cinq véhicules :
@@ -15,8 +17,36 @@
 */
 class Program
 {
+    static void ShowCarList(string[] carsList)
+    {
+        Console.WriteLine("\nVoici la liste des voitures :\n");
+        for (int i = 0; i < carsList.Length; i++)
+        {
+            Console.WriteLine(i + 1 + ": " + carsList[i]);
+        }
+    }
     static void Main(string[] args)
     {
-        
+        string[] cars = { "banshee", "Zentorno", "Sultan", "Sanchez", "Buzzard" };
+        string replay = " ";
+        ShowCarList(cars);
+        do
+        {
+            int choice = 0;
+            do
+            {
+                Console.WriteLine("\nChoisis une voiture à remplacer grâce à son numéro !");
+                choice = Convert.ToInt32(Console.ReadLine());
+            } while (choice < 1 || choice > 5);
+            Console.WriteLine("\nChoisis le nom du nouveau véhicule...");
+            string newCar = Console.ReadLine();
+            cars[choice - 1] = newCar;
+            ShowCarList(cars);
+            do
+            {
+                Console.WriteLine("\nVeux-tu changer une autre voiture ?");
+                replay = Console.ReadLine();
+            }while (replay != "oui" && replay != "non");
+        } while (replay == "oui");
     }
 }
